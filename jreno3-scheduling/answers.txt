@@ -1,0 +1,75 @@
+CS 2200 Spring 2018
+Project 4
+
+Name: Joshua Reno
+GT Username: jreno3
+
+Problem 1B
+----------
+
+/* Fix me */
+1 CPU:
+# of Context Switches: 99
+Total execution time: 67.6 s
+Total time spent in READY state: 389.9 s
+2 CPU:
+# of Context Switches: 107
+Total execution time: 35.8 s
+Total time spent in READY state: 92.2 s
+4 CPU:
+# of Context Switches: 182
+Total execution time: 33.7 s
+Total time spent in READY state: 1.3 s
+
+The total execution time does not seem to be linear as it falls by almost half between 1 and 2 CPUs but not significantly between 2 and 4 CPUs. It does make logical sense that as the number of CPUs increases, the execution time falls. The function appears to be logarithmic in that execution time falls extremely quickly at the beginning and then begins to fall by a very short amount (negative logarithmic). The fall in execution time stops once you reach the maximum number of cores that is the maximum number of parallelizable threads for the given execution.
+
+
+Problem 2B
+----------
+
+/* Fix me */
+1 CPU all
+800:
+# of Context Switches: 136
+Total execution time: 67.6 s
+Total time spent in READY state: 325.4 s
+600:
+# of Context Switches: 161
+Total execution time: 67.6 s
+Total time spent in READY state: 314.5 s
+400:
+# of Context Switches: 203
+Total execution time: 67.6 s
+Total time spent in READY state: 298.8 s
+200:
+# of Context Switches: 361
+Total execution time: 67.5 s
+Total time spent in READY state: 285.4 s
+
+The total time in the ready state decreases with each cut in the size of the timeslice. The shortest timeslice possible could cause waiting time to increase since there would be almost no progress in the program and since the shortest process may occur mutiple times simply because the time slice is smaller.
+
+
+Problem 3B
+----------
+
+/* Fix me */
+It is impossible to know exaclty how much time it will take a program to complete, which is why it is approximated. 
+1 CPU All
+FIFO:
+# of Context Switches: 99
+Total execution time: 67.6 s
+Total time spent in READY state: 389.9 s
+RR 200MS:
+# of Context Switches: 361
+Total execution time: 67.5 s
+Total time spent in READY state: 285.4 s
+RR 800MS:
+# of Context Switches: 136
+Total execution time: 67.6 s
+Total time spent in READY state: 325.4 s
+SRTF:
+# of Context Switches: 139
+Total execution time: 68.4 s
+Total time spent in READY state: 160.9 s
+
+SRTF (approximated) had the lowest waiting time. This makes sense because a process that is shorter doesn't require a significant wait and longer processes wait only as long as the shorter process run whereas in RR or FIFO, a short process waits as long as a logner process. In other words, SRTF will preempt a longer process with a shorter remaining process. With RR, if the time slice is small enough, a short process may have to run multiple times, increasing wait time. Also, SRTF will not experience a convoy effect.

@@ -52,7 +52,7 @@ static unsigned int srtf;
 /*
  * schedule() is your CPU scheduler.  It should perform the following tasks:
  *
- *   1. Select and remove a runnable process from your ready queue which 
+ *   1. Select and remove a runnable process from your ready queue which
  *	you will have to implement with a linked list or something of the sort.
  *
  *   2. Set the process state to RUNNING
@@ -60,9 +60,9 @@ static unsigned int srtf;
  *   3. Call context_switch(), to tell the simulator which process to execute
  *      next on the CPU.  If no process is runnable, call context_switch()
  *      with a pointer to NULL to select the idle process.
- *	The current array (see above) is how you access the currently running process indexed by the cpu id. 
+ *	The current array (see above) is how you access the currently running process indexed by the cpu id.
  *	See above for full description.
- *	context_switch() is prototyped in os-sim.h. Look there for more information 
+ *	context_switch() is prototyped in os-sim.h. Look there for more information
  *	about it and its parameters.
  */
 static void schedule(unsigned int cpu_id)
@@ -81,7 +81,7 @@ static void schedule(unsigned int cpu_id)
         context_switch(cpu_id, pcb, time_slice);
     } else {
         context_switch(cpu_id, NULL, time_slice);
-    }   
+    }
 }
 
 /*
@@ -134,6 +134,10 @@ extern void yield(unsigned int cpu_id)
     schedule(cpu_id);
 }
 
+// preempt, wake up,
+// schedule
+// find the one in ready queue with smallest one
+// whenever waking up process, longest time, don't wake up one
 
 /*
  * terminate() is the handler called by the simulator when a process completes.
@@ -160,7 +164,7 @@ extern void terminate(unsigned int cpu_id)
  *      currently running idle, or all of the CPUs are running processes
  *      with a lower remaining time left than the one which just woke up, wake_up()
  *      should not preempt any CPUs.
- *	To preempt a process, use force_preempt(). Look in os-sim.h for 
+ *	To preempt a process, use force_preempt(). Look in os-sim.h for
  * 	its prototype and the parameters it takes in.
  */
 extern void wake_up(pcb_t *process)
@@ -184,7 +188,7 @@ extern void wake_up(pcb_t *process)
                     }
                 }
             }
-            pthread_mutex_unlock(&current_mutex); 
+            pthread_mutex_unlock(&current_mutex);
             if (x != -1) {
                 force_preempt((unsigned int)x);
             }
